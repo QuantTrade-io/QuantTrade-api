@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework.authtoken",
-
     "qt_core",
     "qt_auth",
 ]
@@ -127,17 +126,17 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-AUTH_USER_MODEL = 'qt_auth.User'
+AUTH_USER_MODEL = "qt_auth.User"
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.TokenAuthentication",
     ),
 }
 
 
-#QuantTrade Config
+# QuantTrade Config
 PASSWORD_MIN_LENGTH = 10
 PASSWORD_MAX_LENGTH = 100
 FIRST_NAME_MIN_LENGTH = 2

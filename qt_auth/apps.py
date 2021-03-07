@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class QtAuthConfig(AppConfig):
-    name = 'qt_auth'
+    name = "qt_auth"

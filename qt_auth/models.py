@@ -11,6 +11,7 @@ class User(AbstractUser):
     Custom user model to change behaviour of the default user mode,
     such as validation and required fields.
     """
+
     username = models.EmailField(null=False, blank=False, unique=True)
     guidelines_accepted = models.BooleanField(default=False)
     paid_subscription = models.BooleanField(default=False)
@@ -20,20 +21,22 @@ class User(AbstractUser):
         return self.username
 
     @classmethod
-    def create_user(cls, email, password, 
-                    first_name, last_name, 
-                    guidelines_accepted):
+    def create_user(cls, email, password, first_name, last_name, guidelines_accepted):
+
         if not guidelines_accepted:
             raise ValidationError(
-                _('You must confirm the guidelines in order to create an account.')
+                _("You must confirm the guidelines to create an account.")
+            )
+
+        new_user = cls.objects.create_user(
+            username=email,
+            password=password,
+            first_name=first_name,
+            last_name=last_name,
+            guidelines_accepted=guidelines_accepted,
         )
 
-        new_user = cls.objects.create_user(username=email, password=password,
-                                           first_name=first_name, last_name=last_name,
-                                           guidelines_accepted=guidelines_accepted)
-        
         return new_user
-
 
     @classmethod
     def is_email_taken(cls, username):

@@ -5,12 +5,12 @@ from qt_auth.views import Register
 
 
 auth_auth_patterns = [
-    path('register', Register.as_view(), name='register-user'),
+    path("register", Register.as_view(), name="register-user"),
 ]
 
 
 api_patterns = [
-    path('auth/', include(auth_auth_patterns)),
+    path("auth/", include(auth_auth_patterns)),
 ]
 
 
