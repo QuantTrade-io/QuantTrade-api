@@ -1,11 +1,12 @@
 from django.contrib import admin
 from django.urls import path, include
 
-from qt_auth.views import Register
+from qt_auth.views import Register, Login
 
 
 auth_auth_patterns = [
     path("register", Register.as_view(), name="register-user"),
+    path("login", Login.as_view(), name="login-user"),
 ]
 
 

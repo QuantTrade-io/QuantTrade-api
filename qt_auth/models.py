@@ -45,3 +45,7 @@ class User(AbstractUser):
             return True
         except User.DoesNotExist:
             return False
+
+    @classmethod
+    def has_subscription(cls, username):
+        return User.objects.get(username=username).paid_subscription

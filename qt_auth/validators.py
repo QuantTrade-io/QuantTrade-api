@@ -9,3 +9,13 @@ def is_email_taken_validator(username):
         raise ValidationError(
             _("An account for the email already exists."),
         )
+
+def has_subscription_validator(username):
+    print('subscription validator')
+    subscription = User.has_subscription(username)
+    if subscription == False:
+        raise ValidationError(
+            ({'error': "You need a subscription to get access to the web app"})
+        )
+    else:
+        return True
