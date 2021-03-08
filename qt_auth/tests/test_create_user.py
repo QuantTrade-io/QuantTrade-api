@@ -1,57 +1,99 @@
-# from django.test import TestCase
-# from django.contrib.auth import get_user_model
-# from django.urls import reverse
+from django.test import TestCase
+from django.contrib.auth import get_user_model
+from django.urls import reverse
 
-# from rest_framework.test import APIClient
-# from rest_framework import status
-
-
-# CREATE_USER_URL = reverse("user:create")
+from rest_framework.test import APIClient
+from rest_framework import status
 
 
-# def create_user(**params):
-#     return get_user_model().objects.create_user(**params)
+REGISTER_USER_URL = reverse("register-user")
 
 
-# class PublicUserApiTests(TestCase):
-#     """Test the Public users API"""
+def create_user(**params):
+    return get_user_model().objects.create_user(**params)
 
-#     def setUp(self):
-#         self.client = APIClient()
 
-#     def tets_create_valid_user_success(self):
-#         """Test creating an user with valid payload succeeds"""
-#         payload = {
-#             "email": "test@test.com",
-#             "password": "test123123",
-#         }
-#         res = self.client.post(CREATE_USER_URL, payload)
+class RegistraterUserApiTests(TestCase):
+    """Test User Registration API"""
 
-#         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
-#         user = get_user_model().objects.get(**res.data)
-#         self.assertTrue(user.check_password(payload["password"]))
-#         self.assertNotIn("password", res.data)
+    def setUp(self):
+        self.client = APIClient()
 
-#     def test_duplicate_user(self):
-#         """Test for creating a user that already exists"""
-#         payload = {
-#             "email": "test@test.com",
-#             "password": "test123123",
-#         }
-#         create_user(**payload)
+    def test_registration_success(self):
+        """
+        Test creating an user.
+        Should return 201.
+        """
+        payload = {
+            "email": "test@test.com",
+            "password": "test123123",
+            "first_name": "Test",
+            "last_name": "Test",
+            "are_guidelines_accepted": True,
+        }
+        res = self.client.post(REGISTER_USER_URL, payload)
 
-#         res = self.client.post(CREATE_USER_URL, payload)
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
 
-#         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+    def test_first_name_required(self):
+        """
+        Test creating an user without a first name.
+        Should return 400 if there is no first name.
+        """
+        payload = {
+            "email": "test@test.com",
+            "password": "test123123",
+            "first_name": "",
+            "last_name": "Test",
+            "are_guidelines_accepted": True,
+        }
+        res = self.client.post(REGISTER_USER_URL, payload)
 
-#     def test_password_length(self):
-#         """Test that the password is more 10 or more characters"""
-#         payload = {
-#             "email": "test@test.com",
-#             "password": "test123",
-#         }
-#         res = self.client.post(CREATE_USER_URL, payload)
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
 
-#         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
-#         user_exists = get_user_model().objects.filter(email=payload["email"]).exists
-#         self.assertFalse(user_exists)
+    def test_last_name_required(self):
+        """
+        Test creating an user without a last name.
+        Should return 400 if there is no last name.
+        """
+        payload = {
+            "email": "test@test.com",
+            "password": "test123123",
+            "first_name": "Test",
+            "last_name": "",
+            "are_guidelines_accepted": True,
+        }
+        res = self.client.post(REGISTER_USER_URL, payload)
+
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_email_required(self):
+        """
+        Test creating an user without an email.
+        Should return 400 if there is no email.
+        """
+        payload = {
+            "email": "",
+            "password": "test123123",
+            "first_name": "Test",
+            "last_name": "Test",
+            "are_guidelines_accepted": True,
+        }
+        res = self.client.post(REGISTER_USER_URL, payload)
+
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_password_required(self):
+        """
+        Test creating an user without a password.
+        Should return 400 if there is no password.
+        """
+        payload = {
+            "email": "test@test.com",
+            "first_name": "Test",
+            "last_name": "Test",
+            "are_guidelines_accepted": True,
+        }
+        res = self.client.post(REGISTER_USER_URL, payload)
+
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)

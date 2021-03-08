@@ -27,7 +27,6 @@ class User(AbstractUser):
             raise ValidationError(
                 _("You must confirm the guidelines to create an account.")
             )
-
         new_user = cls.objects.create_user(
             username=email,
             password=password,

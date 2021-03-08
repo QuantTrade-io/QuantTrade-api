@@ -46,6 +46,7 @@ class Register(APIView):
 
         return Response({"email": new_user.username}, status=status.HTTP_201_CREATED)
 
+
 class Login(APIView):
     serializer_class = LoginSerializer
 
@@ -53,13 +54,13 @@ class Login(APIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         return self.on_valid_request_data(serializer.validated_data)
-    
+
     def on_valid_request_data(self, data):
-        username = data['email']
-        password = data['password']
+        username = data["email"]
+        password = data["password"]
         user = authenticate(username=username, password=password)
         if user is not None:
             token, created = Token.objects.get_or_create(user=user)
-            return Response({'token': token.key}, status=status.HTTP_200_OK)
+            return Response({"token": token.key}, status=status.HTTP_200_OK)
         else:
             raise AuthenticationFailed()

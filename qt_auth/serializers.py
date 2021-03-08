@@ -36,11 +36,13 @@ class RegistrationSerializer(serializers.Serializer):
     )
     are_guidelines_accepted = serializers.BooleanField()
 
+
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField(allow_blank=False)
-    password = serializers.CharField(min_length=PASSWORD_MIN_LENGTH, max_length=PASSWORD_MAX_LENGTH)
+    password = serializers.CharField(
+        min_length=PASSWORD_MIN_LENGTH, max_length=PASSWORD_MAX_LENGTH
+    )
 
     def validate(self, data):
-        has_subscription_validator(data['email'])
+        has_subscription_validator(data["email"])
         return data
-        
