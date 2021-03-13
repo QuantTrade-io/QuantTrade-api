@@ -9,10 +9,6 @@ from rest_framework import status
 REGISTER_USER_URL = reverse("register-user")
 
 
-def create_user(**params):
-    return get_user_model().objects.create_user(**params)
-
-
 class RegistraterUserApiTests(TestCase):
     """Test User Registration API"""
 
@@ -21,7 +17,7 @@ class RegistraterUserApiTests(TestCase):
 
     def test_registration_success(self):
         """
-        Test creating an user.
+        Test creating a user.
         Should return 201.
         """
         payload = {
@@ -37,7 +33,7 @@ class RegistraterUserApiTests(TestCase):
 
     def test_first_name_required(self):
         """
-        Test creating an user without a first name.
+        Test creating a user without a first name.
         Should return 400 if there is no first name.
         """
         payload = {
@@ -53,7 +49,7 @@ class RegistraterUserApiTests(TestCase):
 
     def test_last_name_required(self):
         """
-        Test creating an user without a last name.
+        Test creating a user without a last name.
         Should return 400 if there is no last name.
         """
         payload = {
@@ -69,7 +65,7 @@ class RegistraterUserApiTests(TestCase):
 
     def test_email_required(self):
         """
-        Test creating an user without an email.
+        Test creating a user without an email.
         Should return 400 if there is no email.
         """
         payload = {
@@ -85,7 +81,7 @@ class RegistraterUserApiTests(TestCase):
 
     def test_password_required(self):
         """
-        Test creating an user without a password.
+        Test creating a user without a password.
         Should return 400 if there is no password.
         """
         payload = {

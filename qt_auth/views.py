@@ -15,10 +15,10 @@ class Register(APIView):
     The API to register a new user
     """
 
-    parser_classes = (
-        MultiPartParser,
-        FormParser,
-    )
+    # parser_classes = (
+    #     MultiPartParser,
+    #     FormParser,
+    # )
     serializer_class = RegistrationSerializer
 
     def post(self, request):
