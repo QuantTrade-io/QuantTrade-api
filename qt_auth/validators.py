@@ -7,7 +7,7 @@ from qt_auth.models import User
 def is_email_taken_validator(username):
     if User.is_email_taken(username):
         raise ValidationError(
-            _("An account for the email already exists."),
+            ({"error": "An account for the email already exists."}),
         )
 
 
@@ -19,3 +19,9 @@ def has_subscription_validator(username):
         )
     else:
         return True
+
+def password_length_validator(password):
+    if password.length <= 10:
+        raise ValidationError(
+            ({"error": "Password too short"})
+        )

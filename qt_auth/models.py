@@ -25,7 +25,7 @@ class User(AbstractUser):
 
         if not guidelines_accepted:
             raise ValidationError(
-                _("You must confirm the guidelines to create an account.")
+                ({"error":"You must confirm the guidelines to create an account."})
             )
         new_user = cls.objects.create_user(
             username=email,
