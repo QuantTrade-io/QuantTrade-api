@@ -1,4 +1,3 @@
-from django.utils.translation import gettext_lazy as _
 from rest_framework.exceptions import ValidationError
 
 from qt_auth.models import User
@@ -20,8 +19,7 @@ def has_subscription_validator(username):
     else:
         return True
 
+
 def password_length_validator(password):
     if password.length <= 10:
-        raise ValidationError(
-            ({"error": "Password too short"})
-        )
+        raise ValidationError(({"error": "Password too short"}))

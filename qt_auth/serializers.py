@@ -14,9 +14,7 @@ from django.contrib.auth.password_validation import validate_password
 
 
 class RegistrationSerializer(serializers.Serializer):
-    email = serializers.EmailField(
-        required=True, allow_blank=False
-    )
+    email = serializers.EmailField(required=True, allow_blank=False)
     password = serializers.CharField(
         min_length=PASSWORD_MIN_LENGTH,
         max_length=PASSWORD_MAX_LENGTH,

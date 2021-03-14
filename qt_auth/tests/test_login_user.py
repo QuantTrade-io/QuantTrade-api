@@ -1,12 +1,9 @@
 from django.test import TestCase
-from django.contrib.auth import get_user_model
-from django.core.exceptions import ValidationError
 from django.urls import reverse
 
 from rest_framework.test import APIClient
 from rest_framework import status
 
-from qt_auth.models import User
 
 REGISTER_USER_URL = reverse("register-user")
 LOGIN_USER_URL = reverse("login-user")
@@ -30,9 +27,9 @@ class LoginUserApiTests(TestCase):
             "last_name": "Test",
             "are_guidelines_accepted": True,
         }
-        register_res = self.client.post(REGISTER_USER_URL, register_payload)
+        self.client.post(REGISTER_USER_URL, register_payload)
 
-        user = get_user_model().objects.filter(username=register_payload["email"])
+        # user = get_user_model().objects.filter(username=register_payload["email"])
 
         login_payload = {"email": "test@test.com", "password": "test123123"}
 

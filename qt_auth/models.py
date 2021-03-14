@@ -3,7 +3,6 @@ import uuid
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
 
 
 class User(AbstractUser):
@@ -25,7 +24,7 @@ class User(AbstractUser):
 
         if not guidelines_accepted:
             raise ValidationError(
-                ({"error":"You must confirm the guidelines to create an account."})
+                ({"error": "You must confirm the guidelines to create an account."})
             )
         new_user = cls.objects.create_user(
             username=email,
