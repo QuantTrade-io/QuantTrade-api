@@ -37,11 +37,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+
     "corsheaders",
     "rest_framework",
     "rest_framework.authtoken",
+
     "qt_core",
     "qt_auth",
+    "qt_payment",
 ]
 
 MIDDLEWARE = [
@@ -145,6 +148,13 @@ REST_FRAMEWORK = {
     #     'rest_framework.permissions.IsAuthenticated'
     # )
 }
+
+# STRIPE SETTINGS
+STRIPE_TEST_PUBLIC_KEY = 'pk_test_51HkMJIF1Q4ZxgxN3rNvTx94wRxq4H6QoLPjnpnt1SQRYzAbNjEmsLPdgxwDpTRdpfTGQuTr6pNdIQlV2icTmAGxl00pXS3hYNI'
+STRIPE_TEST_SECRET_KEY = 'sk_test_51HkMJIF1Q4ZxgxN3TblMpv57Yn4w4SMwUIif62LkFmsslrrIE0c7lNLoCExHIFrLaWTzslEFPAQd2GMXgbKEK36P00u2rvGA71'
+STRIPE_LIVE_MODE = False
+DJ_STRIPE_WEBHOOK_SECRET = 'whesc_xxx'
+STRIPE_PRICE_ID = 'price_1IRhMmF1Q4ZxgxN3LrHOeyi1'
 
 
 # QuantTrade Config

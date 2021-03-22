@@ -9,7 +9,6 @@ auth_auth_patterns = [
     path("login", Login.as_view(), name="login-user"),
 ]
 
-
 api_patterns = [
     path("auth/", include(auth_auth_patterns)),
 ]
