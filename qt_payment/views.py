@@ -1,18 +1,43 @@
 import stripe
-from rest_framework import status
-from rest_framework.views import APIView
-from rest_framework.response import Response
 
-stripe.api_key = (
-    'sk_test_51HkMJIF1Q4ZxgxN3TblMpv57Yn4w4SMwUIif62LkFmsslrrIE0c7lNLoCExHIFrLaWTzslEFPAQd2GMXgbKEK36P00u2rvGA71'
-)
+from django.conf import settings
+
+# from rest_framework import status
+from rest_framework.views import APIView
+# from rest_framework.response import Response
+from django.core.exceptions import SuspiciousOperation
+from .serializers import PaymentSerializer
+from django.http import JsonResponse
 
 
 class Payment(APIView):
-    def post(self, request):
+    stripe.api_key = settings.STRIPE_TEST_SECRET_KEY
+    PRODUCTS_STRIPE_PRICING_ID = {
+        'quanttrade_sub': 'price_1IRhMmF1Q4ZxgxN3LrHOeyi1',
+    }
 
-        test_payment_intent = stripe.PaymentIntent.create(
-            amount=1000, currency='pln',
-            payment_method_types=['card'],
-            receipt_email='test@example.com')
-        return Response(status=status.HTTP_200_OK, data=test_payment_intent)
+    serializer_class = PaymentSerializer
+
+    def post(self, request):
+        # serializer = self.serializer_class(data=request.data)
+
+        try:
+            print('try')
+            checkout_session = stripe.checkout.Session.create(
+                success_url="https://example.com/success",
+                cancel_url="https://example.com/cancel",
+                payment_method_types=["card"],
+                line_items=[
+                    {
+                        "price": 'price_1IRhMmF1Q4ZxgxN3LrHOeyi1',
+                        "quantity": 1,
+                    },
+                ],
+                mode="subscription",
+                )
+
+            return JsonResponse({'id': checkout_session.id})
+
+        except Exception as e:
+            print(e)
+            raise SuspiciousOperation(e)
