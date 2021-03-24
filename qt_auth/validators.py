@@ -22,4 +22,4 @@ def has_subscription_validator(username):
 
 def password_length_validator(password):
     if password.length <= 10:
-        raise ValidationError(({"error": "Password too short"}))
+        raise ValidationError({"error": "Password too short"})
