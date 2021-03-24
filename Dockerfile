@@ -11,5 +11,6 @@ RUN pip install -r requirements.txt
 
 COPY . /app/
 
-# RUN adduser -D user
-# USER user
+CMD [ "python", "./manage.py runserver 0.0.0.0:8000" ]
+
+# I JUST DID SOMETHING wrong OHNO
