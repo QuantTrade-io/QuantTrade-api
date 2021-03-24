@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.contrib.auth import get_user_model
 
 
 stripe.api_key = settings.STRIPE_TEST_SECRET_KEY
@@ -43,7 +44,6 @@ class StripeWebhook(APIView):
 
     @csrf_exempt
     def post(self, request):
-        print('StripeWebhook APIView')
         payload = request.body
         event = None
 
@@ -54,23 +54,12 @@ class StripeWebhook(APIView):
         except ValueError as error:
             raise error
 
-        # Handle the event
         if event.type == 'payment_intent.succeeded':
-
-            payment_intent = event.data.object
-            print('[1]', payment_intent)
-            # contains a stripe.PaymentIntent
-            # Then define and call a method to handle the successful payment intent.
-            # handle_payment_intent_succeeded(payment_intent)
+            email = event.data.object.charges['data'][0].billing_details.email
+            self._set_user_paid(email)
 
         elif event.type == 'payment_method.attached':
-
-            payment_method = event.data.object
-            print('[2]', payment_method)
-            # contains a stripe.PaymentMethod
-            # Then define and call a method to handle the successful attachment of a PaymentMethod.
-            # handle_payment_method_attached(payment_method)
-        # ... handle other event types
+            pass
 
         elif event.type == 'customer.subscription.created':
             print('customer.subscription.created ADDED')
@@ -112,3 +101,10 @@ class StripeWebhook(APIView):
             print('Unhandled event type {}'.format(event.type))
 
         return HttpResponse(status=200)
+
+    def _set_user_paid(self, email):
+        print('Settings user to paid')
+        User = get_user_model()
+        new_customer = User.objects.get(username=email)
+        new_customer.paid_subscription = True
+        new_customer.save()
