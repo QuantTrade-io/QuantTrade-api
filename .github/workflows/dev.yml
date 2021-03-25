@@ -25,10 +25,10 @@ jobs:
           pip install -r requirements.txt
       - name: Lint with flake8
         run: |
-          python manage.py flake8
+          flake8
       - name: Format code with Black
         run: |
-          python manage.py black
+          black
       - name: Django Testing
         run: |
           python manage.py test
