@@ -13,20 +13,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:11
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: github_actions
-        ports:
-          - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries
-
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 3.9
+      - name: Set up Docker
         uses: actions/setup-python@v2
         with:
           python-version: 3.9
@@ -34,12 +23,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Lint with flake8
+      - name: Install docker-compose
         run: |
-          flake8
-      - name: Format code with Black
+          pip install docker-compose
+      - name: Run tests
         run: |
-          black
-      - name: Django Testing
-        run: |
-          python manage.py test
+          docker-compose run app sh -c "python manage.py test && flake8"
