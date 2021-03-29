@@ -5,7 +5,8 @@ on: [push]
 env:
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
   WEB_IMAGE: docker.pkg.github.com/quanttrade-io/quanttrade-api/quanttrade-api:latest
-  NGINX_IMAGE: docker.pkg.github.com/$GITHUB_REPOSITORY/nginx
+  NGINX_IMAGE: docker.pkg.github.com/quanttrade-io/quanttrade-api/quanttrade-api:latest
+
 jobs:
   build:
     name: Build Docker Images
