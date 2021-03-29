@@ -1,33 +1,24 @@
-version: "3.7"
+version: "3.9"
 
 services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/usr/src/app/
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env.dev
+
   db:
-    image: postgres:11
-    environment:
-      - POSTGRES_DB=app
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=supersecretpassword
+    image: postgres:12.0
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-
-  app:
-    build:
-      context: .
-    ports:
-      - "8000:8000"
-    volumes:
-      - .:/app
-    command: >
-      sh -c "python manage.py wait_for_db &&
-             python manage.py migrate &&  
-             python manage.py runserver 0.0.0.0:8000"
     environment:
-      - DB_HOST=db
-      - DB_NAME=app
-      - DB_USER=postgres
-      - DB_PASS=supersecretpassword
-    depends_on:
-      - db
+      - POSTGRES_USER=hello_django
+      - POSTGRES_PASSWORD=hello_django
+      - POSTGRES_DB=hello_django_dev
 
 volumes:
   postgres_data:
