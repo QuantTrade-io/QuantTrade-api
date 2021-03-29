@@ -3,7 +3,8 @@ name: Continuous Integration and Delivery
 on: [push]
 
 env:
-  WEB_IMAGE: docker.pkg.github.com/quanttrade-io/quanttrade-api/quanttrade-api:latest
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+  WEB_IMAGE: docker.pkg.github.com/$GITHUB_REPOSITORY/web
   NGINX_IMAGE: docker.pkg.github.com/$GITHUB_REPOSITORY/nginx
 
 jobs:
