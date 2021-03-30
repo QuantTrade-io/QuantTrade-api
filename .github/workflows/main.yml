@@ -80,7 +80,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no root@${{ secrets.DIGITAL_OCEAN_IP_ADDRESS }} << 'ENDSSH'
             cd .
             source .env
-            docker login docker.pkg.github.com -u quanttrade-io -p 3d112193c73a65774beccc551eadd83d35a9d251
+            docker login docker.pkg.github.com -u Joris1Jansen  -p 3d112193c73a65774beccc551eadd83d35a9d251
             docker pull $WEB_IMAGE
             docker pull $NGINX_IMAGE
             docker-compose -f docker-compose.prod.yml up -d
