@@ -5,7 +5,6 @@ RUN apt-get update \
     && apt-get install -yyq netcat
 
 # set work directory
-WORKDIR /usr/src/
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
