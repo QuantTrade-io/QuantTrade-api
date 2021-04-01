@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   web:
-    image: "${NGINX_IMAGE}"
+    image: "${WEB_IMAGE}"
     command: gunicorn qt.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - static_volume:/staticfiles
