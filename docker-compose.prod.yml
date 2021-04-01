@@ -22,7 +22,7 @@ services:
     env_file:
       - .env
   nginx:
-    build: ./nginx
+    image: "${NGINX_IMAGE}"
     volumes:
       - static_volume:/staticfiles
       - media_volume:/mediafiles
