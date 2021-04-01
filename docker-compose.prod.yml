@@ -7,7 +7,7 @@ services:
     volumes:
       - static_volume:/staticfiles
       - media_volume:/mediafiles
-    expose:
+    ports:
       - 8000:8000
     env_file:
       - .env
