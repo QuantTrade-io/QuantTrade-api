@@ -9,7 +9,7 @@ import json
 from django.contrib.auth import get_user_model
 
 
-stripe.api_key = settings.STRIPE_TEST_SECRET_KEY
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 class Payment(APIView):

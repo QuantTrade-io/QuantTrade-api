@@ -1,6 +1,8 @@
-start:
-	git pull origin master &&
-	docker-compose up --build
+builddev:
+	docker-compose -f docker-compose.dev.yml build
+
+startdev:
+	docker-compose -f docker-compose.dev.yml up
 
 migrate:
 	docker-compose run --rm app sh -c "python manage.py migrate"

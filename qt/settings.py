@@ -23,12 +23,15 @@ load_dotenv(verbose=True, dotenv_path=find_dotenv())
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "3ah1=wi6u(-iy7(q$p()o@)3-3rg0pd75ff_5hz+jpy*jl70=w"
+# SECRET_KEY = "3ah1=wi6u(-iy7(q$p()o@)3-3rg0pd75ff_5hz+jpy*jl70=w"
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = int(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = []
+# Adding allowed hosts
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -85,11 +88,12 @@ WSGI_APPLICATION = "qt.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "HOST": os.environ.get("DB_HOST"),
-        "NAME": os.environ.get("DB_NAME"),
-        "USER": os.environ.get("DB_USER"),
-        "PASSWORD": os.environ.get("DB_PASS"),
+        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": os.environ.get("SQL_DATABASE", os.path.join(BASE_DIR, "db.sqlite3")),
+        "USER": os.environ.get("SQL_USER", "user"),
+        "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
+        "HOST": os.environ.get("SQL_HOST", "localhost"),
+        "PORT": os.environ.get("SQL_PORT", "5432"),
     }
 }
 
@@ -151,9 +155,9 @@ REST_FRAMEWORK = {
 }
 
 # STRIPE SETTINGS
-STRIPE_TEST_PUBLIC_KEY = os.environ.get("STRIPE_TEST_PUBLIC")
-STRIPE_TEST_SECRET_KEY = os.environ.get("STRIPE_TEST_SECRET")
-STRIPE_LIVE_MODE = False
+STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC")
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET")
+STRIPE_LIVE_MODE = os.environ.get("STRIPE_SESSION")
 STRIPE_PRICE_ID = os.environ.get("STRIPE_PRICE_ID")
 
 PAYMENT_SUCCESS_URL = os.environ.get("PAYMENT_SUCCESS_URL")
