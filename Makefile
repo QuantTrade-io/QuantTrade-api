@@ -1,5 +1,5 @@
 start:
-	git pull origin master &&
+	git pull origin dev &&
 	docker-compose up --build
 
 migrate:
