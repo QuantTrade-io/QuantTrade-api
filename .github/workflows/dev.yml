@@ -14,7 +14,8 @@ jobs:
           python-version: 3.9
       - name: Flake7
         run: |
-          "flake8 ."
+          pip install flake 8
+          flake8 .
       - name: Django Unit Test
         run: |
           docker-compose -f docker-compose.dev.yml run --rm api sh -c "python manage.py test"
