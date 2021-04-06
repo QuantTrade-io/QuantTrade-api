@@ -14,4 +14,4 @@ jobs:
           python-version: 3.9
       - name: Build image
         run: |
-          docker-compose -f docker-compose.ci.yml build
+          docker-compose -f docker-compose.dev.yml build
