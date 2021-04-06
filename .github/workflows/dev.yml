@@ -12,6 +12,6 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.9
-      - name: Install docker-compose
+      - name: Build image
         run: |
-          pip install docker-compose
+          docker-compose -f docker-compose.ci.yml build
