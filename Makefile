@@ -12,3 +12,6 @@ migrations:
 
 test:
 	docker-compose run --rm app sh -c "black qt qt_core qt_auth && python manage.py test && flake8"
+
+test1:
+	docker-compose -f docker-compose.dev.yml up -d -- build && python
