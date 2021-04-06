@@ -5,7 +5,6 @@ from rest_framework.authtoken.models import Token
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.views.generic import generic
 
 from .serializers import LoginSerializer, RegistrationSerializer
 
