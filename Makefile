@@ -14,4 +14,4 @@ test:
 	docker-compose run --rm app sh -c "black qt qt_core qt_auth && python manage.py test && flake8"
 
 test1:
-	docker-compose -f docker-compose.dev.yml up -d -- build && python
+	docker-compose run -f docker-compose.dev.yml --rm app sh -c "black qt qt_core qt_auth && python manage.py test && flake8"
