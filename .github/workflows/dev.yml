@@ -1,9 +1,6 @@
 name: Django Tests for Dev branch
 
-on:
-  push:
-    branches:
-      - dev
+on: [push]
 
 jobs:
   build:
