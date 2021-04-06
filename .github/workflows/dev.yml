@@ -12,9 +12,6 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.9
-      - name: Install docker-compose
-        run: |
-          pip install docker-compose
       - name: Test flake8
         run: |
-          docker-compose -f docker-compose.dev.yml run --rm api sh -c "flake8"
+          docker-compose -f docker-compose.dev.yml run --rm api sh -c "black qt qt_core qt_auth && python manage.py test && flake8"
