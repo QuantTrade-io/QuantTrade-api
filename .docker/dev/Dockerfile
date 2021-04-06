@@ -8,20 +8,18 @@ RUN apt-get update \
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# Copy any files over
-# COPY ../.docker/dev/entrypoint.sh .
-
-# Change permissions
-# RUN chmod +x /entrypoint.sh
-
-
 # install dependencies
 RUN pip install --upgrade pip
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
+# copy entrypoint.sh
+COPY ./.docker/dev/entrypoint.sh .
+
+RUN chmod +x ./entrypoint.sh
+
 # copy project
 COPY . .
 
 # run entrypoint.sh
-# ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["./entrypoint.sh"]

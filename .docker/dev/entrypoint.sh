@@ -1,7 +1,17 @@
-#!/bin/bash
+#!/bin/sh
 
-# install pip env deps, run migrations, collect media, start the server
+if [ "$DATABASE" = "postgres" ]
+then
+    echo "Waiting for postgres..."
 
-# pip install -r requirements.txt --quiet
+    while ! nc -z $SQL_HOST $SQL_PORT; do
+      sleep 0.1
+    done
 
-exec $@
+    echo "PostgreSQL started"
+fi
+
+# python manage.py flush --no-input
+# python manage.py migrate
+
+exec "$@"
