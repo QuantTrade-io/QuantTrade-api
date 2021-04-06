@@ -3,6 +3,16 @@ exclude =
     migrations,
     __pycache__,
     manage.py,
-    settings.py
+    settings.py,
+    .docker,
+    .github,
+    .env,
+    .gitignore,
+    docker-compose.dev.yml,
+    docker-compose.prod.yml,
+    Makefile,
+    requirements.txt
+
+
 
 max-line-length = 120
