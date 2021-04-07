@@ -10,11 +10,11 @@ migrate:
 migrations:
 	docker-compose run --rm app sh -c "python manage.py makemigrations"
 
-test:
+unittest:
 	docker-compose run --rm app sh -c "black qt qt_core qt_auth && python manage.py test && flake8"
 
 flake:
 	docker-compose -f docker-compose.dev.yml run --rm api sh -c "flake8 ."
 
-test1:
-	docker-compose -f docker-compose.dev.yml run --rm api sh -c "black qt qt_core qt_auth && python manage.py test"
+black:
+	docker-compose -f docker-compose.dev.yml run --rm api sh -c "black ."
