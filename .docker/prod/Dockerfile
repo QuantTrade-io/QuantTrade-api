@@ -23,6 +23,7 @@ RUN chmod +x ./entrypoint.sh
 
 # copy project
 COPY . .
+COPY ./nginx ./nginx 
 
 # run entrypoint.sh
 ENTRYPOINT ["./entrypoint.sh"]
