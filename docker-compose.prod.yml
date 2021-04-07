@@ -17,7 +17,7 @@ services:
     env_file: .env
   nginx:
     build:
-      context: ./nginx/Dockerfile
+      context: ./nginx
       cache_from:
         - "${NGINX_IMAGE}"
     image: "${NGINX_IMAGE}"
