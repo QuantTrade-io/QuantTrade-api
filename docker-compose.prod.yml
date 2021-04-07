@@ -5,6 +5,9 @@ services:
     build:
       dockerfile: .docker/prod/Dockerfile
       context: .
+      cache_from:
+        - "${API_IMAGE}"
+    image: "${API_IMAGE}"
     command: gunicorn qt.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - static_volume:/staticfiles
@@ -15,22 +18,20 @@ services:
       - .env
     depends_on:
       - db
-  db:
-    image: postgres:12.0
-    volumes:
-      - postgresql:/var/lib/postgresql/data/
-    env_file:
-      - .env
   nginx:
-    build: ./nginx
+    build:
+      context: ./nginx
+      cache_from:
+        - "${API_IMAGE}"
+    image: "${API_IMAGE}"
     volumes:
       - static_volume:/staticfiles
       - static_volume:/mediafiles
     ports:
-      - 1337:80
+      - 80:80
     depends_on:
       - api
+
 volumes:
-  postgresql:
   static_volume:
   media_volume:
