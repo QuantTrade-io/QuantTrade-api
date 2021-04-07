@@ -84,4 +84,5 @@ jobs:
             docker pull $API_IMAGE
             docker pull $NGINX_IMAGE
             docker-compose -f docker-compose.prod.yml up -d
+            docker-compose -f docker-compose.prod.yml run --rm api sh -c "python manage.py collectstatic"
           ENDSSH
