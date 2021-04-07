@@ -76,11 +76,11 @@ jobs:
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
-          scp -o StrictHostKeyChecking=no -r .env docker-compose.prod.yml root@${{ secrets.DIGITAL_OCEAN_IP_ADDRESS }}:.
+          scp -o StrictHostKeyChecking=no -r .env ./docker-compose.prod.yml root@${{ secrets.DIGITAL_OCEAN_IP_ADDRESS }}:.
           ssh -o StrictHostKeyChecking=no root@${{ secrets.DIGITAL_OCEAN_IP_ADDRESS }} << 'ENDSSH'
             cd .
             source .env
-            docker login docker.pkg.github.com -u Joris1Jansen -p ${{ secrets.PERSONAL_ACCESS_TOKEN_JJ_QUANT_TRADE_API }}
+            docker login docker.pkg.github.com -u QuantTrade-io -p ${{ secrets.PERSONAL_ACCESS_TOKEN_JJ_QUANT_TRADE_API }}
             docker pull $WEB_IMAGE
             docker pull $NGINX_IMAGE
             docker-compose -f docker-compose.prod.yml up -d
