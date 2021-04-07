@@ -62,7 +62,7 @@ jobs:
           echo SQL_PASSWORD=${{ secrets.SQL_PASSWORD }} >> .env
           echo SQL_HOST=${{ secrets.SQL_HOST }} >> .env
           echo SQL_PORT=${{ secrets.SQL_PORT }} >> .env
-          echo WEB_IMAGE=${{ env.WEB_IMAGE }} >> .env
+          echo API_IMAGE=${{ env.API_IMAGE }} >> .env
           echo NGINX_IMAGE=${{ env.NGINX_IMAGE }} >> .env
       - name: Add the private SSH key to the ssh-agent
         env:
@@ -81,7 +81,7 @@ jobs:
             cd .
             source .env
             docker login docker.pkg.github.com -u QuantTrade-io -p ${{ secrets.PERSONAL_ACCESS_TOKEN_JJ_QUANT_TRADE_API }}
-            docker pull $WEB_IMAGE
+            docker pull $API_IMAGE
             docker pull $NGINX_IMAGE
             docker-compose -f docker-compose.prod.yml up -d
           ENDSSH
