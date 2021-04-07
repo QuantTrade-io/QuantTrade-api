@@ -1,9 +1,6 @@
 # pull official base image
 FROM python:3.9
 
-RUN mkdir /staticfiles
-RUN mkdir /mediafiles
-
 RUN apt-get update \
     && apt-get install -yyq netcat
 
